@@ -15,17 +15,20 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 ?>
-
+<!--<div>-->
+<!--    --><?// echo $role?>
+<!--</div>-->
+<!--<br>-->
 <table class="table table-striped">
     <tr><th>Order_id</th>
         <th>Name</th>
         <th>Status</th>
-        <th>Взять в работу</th></tr>>
+        <th>Взять в работу</th></tr>
         <?foreach ($files as $file) { ?>
         <tr>
             <td><?=$file->order_id?></td>
             <td><?=$file->pdf_name?></td>
-            <td><?=$file->statusText?></td>
+            <td><?=$file->status?></td>
 <!--            <td><a class="btn btn-primary" role="button"-->
 <!--            href="--><?//Url::to(['/order/take-work', 'id' => $file->id])?>
             <!--">Взять в работу</a></td>-->

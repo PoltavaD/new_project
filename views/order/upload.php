@@ -7,6 +7,6 @@ use yii\widgets\ActiveForm;
 <?= $form->field($model, 'pdfFiles[]')->fileInput
 (['multiple' => true, 'accept' => 'pdf']) ?>
 
-<button class="btn btn-primary" type="submit">Оформить заказ</button>
+<button class="btn btn-primary" type="submit">Загрузить</button>
 
 <?php ActiveForm::end() ?>

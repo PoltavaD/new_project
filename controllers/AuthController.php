@@ -24,7 +24,7 @@ class AuthController extends Controller
                     $session->set('role', $user['role']);
 
                     if ($session->get('role' ) == 1) {
-                        Yii::$app->response->redirect(Url::to('order/upload'));
+                        Yii::$app->response->redirect(Url::to('order/show'));
                     } elseif ($session->get('role' ) == 2) {
                         Yii::$app->response->redirect(Url::to('order/show'));
                     }

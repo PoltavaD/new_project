@@ -31,13 +31,14 @@ class UploadForm extends Model
                 if (!file_exists('./uploads/' . $save_name[0] . '/' . $save_name[1])) {
                     mkdir('./uploads/' . $save_name[0] . '/' . $save_name[1], 0777, true);
                     $file->saveAs('uploads/' . $save_name[0] . '/' . $save_name[1] . '/' . $save_name);
-
-                    $newFile = new Files();
-                    $newFile->save_name = $save_name;
-                    $newFile->user_id = $session->get('id');
-                    $newFile->status = 1;
-                    $newFile->pdf_name = $file->name;
-                    $newFile->save();
+                    if ($file) {
+                        $newFile = new Files();
+                        $newFile->save_name = $save_name;
+                        $newFile->user_id = $session->get('id');
+                        $newFile->status = 1;
+                        $newFile->pdf_name = $file->name;
+                        $newFile->save();
+                    }
                 }
             }
             return true;

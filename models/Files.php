@@ -30,25 +30,28 @@ class Files extends \yii\db\ActiveRecord
      * {@inheritdoc}
      */
 
-    public function getStatusText()
-    {
-        return ($this->status);
-    }
+    const STATUS_ZAYAVKA = 1;
+    const STATUS_INWORK = 2;
 
-    public function setStatusText($value)
-    {
-        if ($value == 1) {
-            $this->status = 'Заявка оставлена';
-        }
-
-        if ($value == 2) {
-            $this->status = 'В работе';
-        }
-
-        if ($value == 3) {
-            $this->status = 'Готово';
-        }
-    }
+//    public function getStatusText()
+//    {
+//        return ($this->status);
+//    }
+//
+//    public function setStatusText($value)
+//    {
+//        if ($value == 1) {
+//            $this->status = 'Заявка оставлена';
+//        }
+//
+//        if ($value == 2) {
+//            $this->status = 'В работе';
+//        }
+//
+//        if ($value == 3) {
+//            $this->status = 'Готово';
+//        }
+//    }
 
 //    Почему не работает функция выше? Или как по другому сделать замену цифрового статуса на текст?
 
