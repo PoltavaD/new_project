@@ -41,3 +41,6 @@ use yii\helpers\Url;
         <?}?>
 </table>
 
+<?= Html::a('Приступить к работе', ['/order/work'],
+    ['class' => 'btn btn-primary']) ?>
+

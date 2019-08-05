@@ -10,7 +10,9 @@ use yii\helpers\Url;
     <tr><th>Order_id</th>
         <th>Name</th>
         <th>Status</th>
-        <th>Скачать</th></tr>
+        <th>Скачать</th>
+        <th>Выполнить</th>
+    </tr>
     <?foreach ($files as $file) { ?>
         <tr>
             <td><?=$file->id?></td>
@@ -18,10 +20,9 @@ use yii\helpers\Url;
             <td><?=$file->status?></td>
             <td>
                 <?= Html::a('Скачать', ['/order/download', 'id' => $file->id],
-                    ['class' => 'btn btn-primary']) ?>
-<!--                --><?//= Html::a('Скачать', ['/order/take-work', 'id' => $file->id],
-//                    ['class' => 'btn btn-primary']) ?>
-            </td>
+                    ['class' => 'btn btn-primary']) ?></td>
+            <td><?= Html::a('Выполнить', ['/order/send-order', 'id' => $file->id],
+                    ['class' => 'btn btn-primary']) ?></td>
         </tr>
     <?}?>
 </table>
