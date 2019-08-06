@@ -1,17 +1,24 @@
 <?php
-$this->title = 'new_project';
-use yii\widgets\ActiveForm;
+
+/**
+ * Created by PhpStorm.
+ * User: Poltava
+ * Date: 06.08.2019
+ * Time: 4:52
+ */
+
+/* @var $this \yii\web\View */
+/* @var $files \app\models\Files[]|\app\models\Orders[]|array|\yii\db\ActiveRecord[] */
+
 use yii\helpers\Html;
 use yii\helpers\Url;
 
 ?>
-
 <table class="table table-striped">
     <tr><th>Order_id</th>
         <th>Name</th>
         <th>Status</th>
         <th>Скачать</th>
-        <th>Выполнить</th>
         <th>Удалить</th>
     </tr>
     <?foreach ($files as $file) { ?>
@@ -19,17 +26,10 @@ use yii\helpers\Url;
             <td><?=$file->id?></td>
             <td><?=$file->pdf_name?></td>
             <td><?=$file->status?></td>
-            <td><?= Html::a('Скачать', ['/order/download', 'id' => $file->id],
+            <td><?= Html::a('Скачать', ['/order/download-ready', 'id' => $file->id],
                     ['class' => 'btn btn-primary']) ?></td>
-            <td><?= Html::a('Выполнить', ['/order/send-order', 'id' => $file->id],
-                    ['class' => 'btn btn-success']) ?></td>
             <td><?= Html::a('Удалить', ['/order/delete', 'id' => $file->id],
                     ['class' => 'btn btn-danger']) ?></td>
         </tr>
     <?}?>
 </table>
-
-<br>
-<div>
-    <?= Html::a('Готовые заказы', ['/order/ready-orders'], ['class' => 'btn btn-success']) ?>
-</div>

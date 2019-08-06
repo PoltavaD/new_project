@@ -10,3 +10,4 @@ use yii\widgets\ActiveForm;
 <button class="btn btn-primary" type="submit">Загрузить</button>
 
 <?php ActiveForm::end() ?>
+<?php

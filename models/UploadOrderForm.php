@@ -41,6 +41,7 @@ class UploadOrderForm extends Model
                     $newFile->save_name = $save_name;
                     $newFile->user_id = $session->get('id');
                     $newFile->status = 3;
+                    $newFile->order_id = Yii::$app->request->get('order_id');
                     $newFile->pdf_name = $this->pdfOrder->name;
                     $newFile->save();
                 }

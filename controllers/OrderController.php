@@ -9,6 +9,7 @@ use app\models\UploadForm;
 use yii\web\UploadedFile;
 use app\models\Orders;
 use app\models\UploadOrderForm;
+use yii\helpers\Url;
 
 class OrderController extends Controller
 {
@@ -20,9 +21,7 @@ class OrderController extends Controller
         if (Yii::$app->request->isPost) {
             $model->pdfFiles = UploadedFile::getInstances($model, 'pdfFiles');
             if ($model->upload()) {
-                $session = Yii::$app->session;
-                $files = Files::find()->where(['user_id' => ($session->get('id' ))])->all();
-                return $this->render('showorders', ['files' => $files]);//
+                $this->redirect('/order/show');
             }
         }
 
@@ -119,8 +118,10 @@ class OrderController extends Controller
                 $Order->setAttributes($Order->attributes);
                 $Order->status = 3;
                 $Order->save();
-                $model = new UploadOrderForm();
-                return $this->render('/order/uploadOrder', ['model' => $model, 'Order' => $Order]);
+
+                Yii::$app->response->redirect(Url::to(['order/order-upload', 'pdf_name' => $Order->pdf_name,
+                    'order_id' => $Order->id] ));
+
             } else {
                 $files = Orders::find()->where(['status' => [2,3], 'user_id' => $session->get('id'),])->all();
                 return $this->render('ordersinwork', ['files' => $files, ]);
@@ -131,23 +132,55 @@ class OrderController extends Controller
 
     public function actionOrderUpload()
     {
+
         $model = new UploadOrderForm();
 
         if (Yii::$app->request->isPost) {
             $model->pdfOrder = UploadedFile::getInstance($model, 'pdfOrder');
             if ($model->upload()) {
-                $session = Yii::$app->session;
-                $files = Files::find()->where(['user_id' => ($session->get('id' ))])->all();
-                return $this->render('showorders', ['files' => $files]);//
+                $this->redirect('/order/work');
             }
         }
 
-        return $this->render('uploadOrder', ['model' => $model, 'Order' => $Order]);
+        return $this->render('uploadOrder', ['model' => $model]);
+    }
+
+    public function actionDelete()
+    {
+
+    }
+
+    public function actionReadyOrders()
+    {
+        $session = Yii::$app->session;
+        $files = Files::find()->where(['status' => 3, 'user_id' => $session->get('id')])->all();
+        return $this->render('showReadyOrders', ['files' => $files,]);
+    }
+
+    public function actionDownloadReady($id)
+    {
+        $session = Yii::$app->session;
+
+        $file = Files::find()->where(['id' => $id, 'user_id' => $session->get('id'),])->one();
+
+        if ($file) {
+            $path = './uploads/' . $file->save_name[0] . '/' . $file->save_name[1] . '/' . $file->save_name;
+        }
+
+        if (file_exists($path)) {
+
+            header("Cache-Control: public");
+            header('Content-Description: File Transfer');
+            header('Content-Disposition: attachment; filename=' . $file->pdf_name);
+            header('Content-Type: octet-stream');
+            header('Content-Transfer-Encoding: binary');
+            readfile($path);
+        }
+
     }
 
     public function actionTest()
     {
-
         return $this->render('test');
         echo '<pre>';
         print_r($pdfOrder);

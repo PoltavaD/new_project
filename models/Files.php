@@ -2,8 +2,6 @@
 
 namespace app\models;
 
-use Yii;
-
 /**
  * This is the model class for table "files".
  *
@@ -61,7 +59,8 @@ class Files extends \yii\db\ActiveRecord
             [['user_id', 'pdf_name', 'save_name'], 'required'],
             [['user_id', 'order_id', 'status'], 'integer'],
             [['pdf_name', 'save_name'], 'string', 'max' => 255],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(),
+                'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
