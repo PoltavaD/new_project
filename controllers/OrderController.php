@@ -132,7 +132,6 @@ class OrderController extends Controller
 
     public function actionOrderUpload()
     {
-
         $model = new UploadOrderForm();
 
         if (Yii::$app->request->isPost) {
@@ -145,9 +144,33 @@ class OrderController extends Controller
         return $this->render('uploadOrder', ['model' => $model]);
     }
 
-    public function actionDelete()
+    public function actionDelete($id)
     {
+        $session = Yii::$app->session;
+        $file = Files::find()->where(['id' => $id,])->one();
 
+        if ( !$file ) {
+            Yii::$app->session->setFlash('Error', 'Файл не существует!');
+            return $this->redirect('/order/ready-orders/');
+        } else {
+            $path = './uploads/' . $file->save_name[0] . '/' . $file->save_name[1] . '/' . $file->save_name;
+        }
+
+        if ( $file->status == 2 ) {
+            Yii::$app->session->setFlash('Error', 'Файл в работе');
+            return $this->redirect('/order/ready-orders/');
+        } elseif ($file->order_id === null && ($session->get('role') == 1)) {
+            if ($file->delete()) {
+                unlink($path);
+                return $this->redirect('/order/show/');
+            }
+        } elseif ($file->status == 3 && ($session->get('role') == 2)) {
+            if ($file->delete()) {
+                unlink($path);
+                return $this->redirect('/order/ready-orders/');
+            }
+        }
+//        потом, когда раскидаю контроллеры по ролям, переделаю
     }
 
     public function actionReadyOrders()

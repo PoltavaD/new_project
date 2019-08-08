@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
 
 <?php ActiveForm::end() ?>
 <?
-echo '<pre>';
-print_r(Yii::$app->request->get());
-echo '</pre>';
+//echo '<pre>';
+//print_r(Yii::$app->request->get());
+//echo '</pre>';
 //exit();

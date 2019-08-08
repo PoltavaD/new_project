@@ -23,7 +23,7 @@ use yii\helpers\Url;
     </tr>
     <?foreach ($files as $file) { ?>
         <tr>
-            <td><?=$file->id?></td>
+            <td><?=$file->order_id?></td>
             <td><?=$file->pdf_name?></td>
             <td><?=$file->status?></td>
             <td><?= Html::a('Скачать', ['/order/download-ready', 'id' => $file->id],

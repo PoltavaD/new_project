@@ -12,7 +12,6 @@ use yii\helpers\Url;
         <th>Status</th>
         <th>Скачать</th>
         <th>Выполнить</th>
-        <th>Удалить</th>
     </tr>
     <?foreach ($files as $file) { ?>
         <tr>
@@ -23,8 +22,6 @@ use yii\helpers\Url;
                     ['class' => 'btn btn-primary']) ?></td>
             <td><?= Html::a('Выполнить', ['/order/send-order', 'id' => $file->id],
                     ['class' => 'btn btn-success']) ?></td>
-            <td><?= Html::a('Удалить', ['/order/delete', 'id' => $file->id],
-                    ['class' => 'btn btn-danger']) ?></td>
         </tr>
     <?}?>
 </table>
